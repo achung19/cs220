@@ -1,4 +1,5 @@
-//hello_world.c
+// Alisen Chung
+// achung19
 
 #include <stdio.h>
 
