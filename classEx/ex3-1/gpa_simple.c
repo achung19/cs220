@@ -92,6 +92,8 @@ int main() {
       break;
     case 'f': points = 0.0;
       break;
+    default: printf("Invalid Grade!\n");
+      continue;
     }
     point_sum += points * credits;
     credit_sum += credits;
