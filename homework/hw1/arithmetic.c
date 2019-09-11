@@ -35,7 +35,7 @@ float scanOp(float total, char t, int s) {
     return 1;
   } else if(s == -1) {
     printf("%f\n", total);
-    endReached = 1;
+    endReached = 2;
     return total;
   } else if(t == '*') {
     return scanNum(total, 0);
@@ -64,5 +64,10 @@ int main() {
     
     result = scanOp(result, temp, scanner);
   }
-  return result;
+
+  if(endReached == 1) {
+    return result;
+  } else {
+    return 0;
+  }
 }
