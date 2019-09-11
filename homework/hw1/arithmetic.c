@@ -3,56 +3,66 @@
 
 #include <stdio.h>
 
-int main(void) {
-  float result = 0;
-  
-  if(scanf("%f", &result) == 0) {
-    printError();
-    return 0;
-  }
+int endReached = 0;
 
-  scanOp(result);
-  return 0;
-
-}
- 
 void printError(void) {
-  printf("malformed expression");
+  printf("malformed expression \n");
 }
 
-float scanOp(float total) {
-  char t;
-  int s = scanf(" %c", &t);
-  
-  if(s == 0) {
-    printError();
-    return 0;
-  } else if(s == -1) {
-    printf("%f", total);
-    return total;
-  } else if(t == "*") {
-    return scanNum(total, 0);
-  } else if(t == "/") {
-    return scanNum(total, 1);
-  } else {
-    printError();
-    return 0;
-  }
-}
-  
 float scanNum(float total, int div) {
   float t;
   int s = scanf("%f", &t);
   
   if(s != 1) {
     printError();
-    return 0;
+    endReached = 1;
+    return 1;
   } else if(div == 0) {
-    return scanOp(total*t);
+    return total*t;
   } else if(t == 0) {
-    printf("division by zero");
-    return 0;
+    printf("division by zero \n");
+    endReached = 1;
+    return 2;
   } else {
-    return scanOp(total/t);
+    return total/t;
   }
+}
+
+float scanOp(float total, char t, int s) {
+  if(s == 0) {
+    printError();
+    endReached = 1;
+    return 1;
+  } else if(s == -1) {
+    printf("%f \n", total);
+    endReached = 1;
+    return total;
+  } else if(t == '*') {
+    return scanNum(total, 0);
+  } else if(t == '/') {
+    return scanNum(total, 1);
+  } else {
+    printError();
+    endReached = 1;
+    return 1;
+  }
+}
+
+int main() {
+  float result = 0;
+
+  printf("Enter your expression: \n");
+  if(scanf("%f", &result) == 0) {
+    printError();
+    endReached = 1;
+    return 1;
+  }
+
+  while(endReached == 0) {
+    char temp;
+    int scanner = scanf(" %c", &temp);
+    
+    result = scanOp(result, temp, scanner);
+  }
+  return result;
 }
