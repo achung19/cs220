@@ -6,7 +6,7 @@
 int endReached = 0;
 
 void printError(void) {
-  printf("malformed expression \n");
+  printf("malformed expression\n");
 }
 
 float scanNum(float total, int div) {
@@ -20,7 +20,7 @@ float scanNum(float total, int div) {
   } else if(div == 0) {
     return total*t;
   } else if(t == 0) {
-    printf("division by zero \n");
+    printf("division by zero\n");
     endReached = 1;
     return 2;
   } else {
@@ -34,7 +34,7 @@ float scanOp(float total, char t, int s) {
     endReached = 1;
     return 1;
   } else if(s == -1) {
-    printf("%f \n", total);
+    printf("%f\n", total);
     endReached = 1;
     return total;
   } else if(t == '*') {
@@ -51,7 +51,7 @@ float scanOp(float total, char t, int s) {
 int main() {
   float result = 0;
 
-  printf("Enter your expression: \n");
+  printf("Please enter an arithmetic expression using * and / only:\n");
   if(scanf("%f", &result) != 1) {
     printError();
     endReached = 1;
