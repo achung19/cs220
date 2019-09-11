@@ -52,7 +52,7 @@ int main() {
   float result = 0;
 
   printf("Enter your expression: \n");
-  if(scanf("%f", &result) == 0) {
+  if(scanf("%f", &result) != 1) {
     printError();
     endReached = 1;
     return 1;
