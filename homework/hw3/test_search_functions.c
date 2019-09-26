@@ -158,43 +158,51 @@ void test_find_at_vertical(){
 }
 
 void test_find_right(){
-  FILE* output_file = fopen("output_test.txt", "w");
+  FILE* output_file = fopen("output_test_right.txt", "w");
   char test_grid[MAX_SIZE][MAX_SIZE] = {{'a', 'b', 'c'}, {'d', 'e', 'f'}, {'a', 'b', 'c'}};
   
   assert(find_right(test_grid, 3, "abc", output_file) == 2);
   assert(find_right(test_grid, 3, "def", output_file) == 1);
   assert(find_right(test_grid, 3, "ghi", output_file) == 0);
   assert(find_right(test_grid, 3, "zz", output_file) == 0);
+  fclose(output_file);
+  assert(file_eq("output_test_right.txt", "expected_output_right.txt"));
 }
 
 void test_find_left(){
-  FILE* output_file = fopen("output_test.txt", "w");
+  FILE* output_file = fopen("output_test_left.txt", "w");
   char test_grid[MAX_SIZE][MAX_SIZE] = {{'a', 'b', 'c'}, {'d', 'e', 'f'}, {'a', 'b', 'c'}};
   
   assert(find_left(test_grid, 3, "cba", output_file) == 2);
   assert(find_left(test_grid, 3, "fed", output_file) == 1);
   assert(find_left(test_grid, 3, "ihg", output_file) == 0);
   assert(find_left(test_grid, 3, "zz", output_file) == 0);
+  fclose(output_file);
+  assert(file_eq("output_test_left.txt", "expected_output_left.txt"));
 }
 
 void test_find_down(){
-  FILE* output_file = fopen("output_test.txt", "w");
+  FILE* output_file = fopen("output_test_down.txt", "w");
   char test_grid[MAX_SIZE][MAX_SIZE] = {{'a', 'd', 'a'}, {'b', 'e', 'b'}, {'c', 'f', 'c'}};
   
   assert(find_down(test_grid, 3, "abc", output_file) == 2);
   assert(find_down(test_grid, 3, "def", output_file) == 1);
   assert(find_down(test_grid, 3, "ghi", output_file) == 0);
   assert(find_down(test_grid, 3, "zz", output_file) == 0);
+  fclose(output_file);
+  assert(file_eq("output_test_down.txt", "expected_output_down.txt"));
 }
 
 void test_find_up(){
-  FILE* output_file = fopen("output_test.txt", "w");
+  FILE* output_file = fopen("output_test_up.txt", "w");
   char test_grid[MAX_SIZE][MAX_SIZE] = {{'a', 'd', 'a'}, {'b', 'e', 'b'}, {'c', 'f', 'c'}};
   
   assert(find_up(test_grid, 3, "cba", output_file) == 2);
   assert(find_up(test_grid, 3, "fed", output_file) == 1);
   assert(find_up(test_grid, 3, "ihg", output_file) == 0);
   assert(find_up(test_grid, 3, "zz", output_file) == 0);
+  fclose(output_file);
+  assert(file_eq("output_test_up.txt", "expected_output_up.txt"));
 }
 
 
@@ -215,5 +223,7 @@ void test_find_all(){
   assert(find_all(test_grid, 3, "fea", output_file) == 0);
   assert(find_all(test_grid, 3, "abg", output_file) == 0);
   assert(find_all(test_grid, 3, "zz", output_file) == 0);
+  fclose(output_file);
+  assert(file_eq("output_test.txt", "expected_output.txt"));
 }
 

@@ -1,0 +1,3 @@
+cba 0 2 L
+cba 2 2 L
+fed 1 2 L
