@@ -31,6 +31,5 @@ int main(int argc, char* argv[]) {
     find_all(grid, n, words, stdout);
   }
   
-  fclose(output_file);
   return 0;
 }
