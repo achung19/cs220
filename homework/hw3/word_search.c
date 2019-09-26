@@ -16,6 +16,7 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
+  // Populate grid, return error if needed.
   char grid[MAX_SIZE][MAX_SIZE];
   int n = populate_grid(grid, argv[1]);
   if (n == -1) {
@@ -26,6 +27,7 @@ int main(int argc, char* argv[]) {
     return n;
   }
 
+  // Scans for words until EOF is passed.
   char words[MAX_SIZE+1];
   while (scanf(" %s",words) != -1) {
     find_all(grid, n, words, stdout);

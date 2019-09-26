@@ -34,7 +34,8 @@ int convert_lowercase(char s[]);
 int populate_grid(char grid[][MAX_SIZE], char filename_to_read_from[]); 
 
 /*
- * funky functions
+ * Helper functions for find functions, returns 1 if there is a word in the
+ * specified location that matches the word given in the parameters.
  */
 int find_at_horizontal (char grid[][MAX_SIZE], int n, char word[], int loc[]);
 int find_at_vertical   (char grid[][MAX_SIZE], int n, char word[], int loc[]);

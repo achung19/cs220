@@ -8,7 +8,8 @@
 #include "search_functions.h"
 
 /* 
- * <Replace this with your own useful comment.> 
+ * Converts s to all lowercase characters. Returns -1 if there are
+ * non-alphabetical characters, 0 otherwise.
  */
 int convert_lowercase(char s[]) {
   for (int i = 0; i < (int) strlen(s); i++) {
@@ -65,7 +66,7 @@ int populate_grid(char grid[][MAX_SIZE], char filename_to_read_from[]){
 }
 
 /*
- * funky function
+ * Searches for a word in a grid from left to right, starting at the specified location.
  */
 int find_at_horizontal(char grid[][MAX_SIZE], int n, char word[], int loc[]) {
 
@@ -82,7 +83,7 @@ int find_at_horizontal(char grid[][MAX_SIZE], int n, char word[], int loc[]) {
 }
 
 /*
- * funky function
+ * Searches for a word in a grid from top to bottom, starting at the specified location.
  */
 int find_at_vertical(char grid[][MAX_SIZE], int n, char word[], int loc[]) {
 
@@ -99,7 +100,7 @@ int find_at_vertical(char grid[][MAX_SIZE], int n, char word[], int loc[]) {
 }
 
 /* 
- * <Replace this with your own useful comment.> 
+ * Finds words in grid from left to right.
  */
 int find_right(char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
   int count = 0;
@@ -118,7 +119,8 @@ int find_right(char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
 
 
 /* 
- * <Replace this with your own useful comment.> 
+ * Finds words in grid from right to left by reversing string and using 
+ * find_right logic.
  */
 int find_left (char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
   char rev_word[MAX_SIZE+1];
@@ -143,7 +145,7 @@ int find_left (char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
 
 
 /* 
- * <Replace this with your own useful comment.> 
+ * Finds words in grid from top to bottom. 
  */
 int find_down (char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
   int count = 0;
@@ -162,7 +164,8 @@ int find_down (char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
 
 
 /* 
- * <Replace this with your own useful comment.> 
+ * Finds words in grid from bottom to top by reversing string and sing
+ * find_down logic. 
  */
 int find_up (char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
   char rev_word[MAX_SIZE+1];
@@ -187,7 +190,7 @@ int find_up (char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
 
 
 /* 
- * <Replace this with your own useful comment.> 
+ * Calls and sums up all find functions.
  */
 int find_all  (char grid[][MAX_SIZE], int n, char word[], FILE *write_to) {
   int count = find_right(grid, n, word, write_to);
