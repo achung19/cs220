@@ -65,7 +65,6 @@ int populate_grid(char grid[][MAX_SIZE], char filename_to_read_from[]){
 
   char end[2];
   fscanf(file, "%2c", end);
-  printf("end: %d\n", end[1]);
   if (end[1] != 10){
     fclose(file);
     return -2;
