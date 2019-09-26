@@ -38,11 +38,14 @@ int populate_grid(char grid[][MAX_SIZE], char filename_to_read_from[]){
   char s[MAX_SIZE+2];
   int n = 0;
   if (fscanf(file, "%s", s) != 1) {
+    fclose(file);
     return -2;
   }
   if ((int) strlen(s) > MAX_SIZE || strlen(s) == 0) {
+    fclose(file);
     return -2;
   } else if (convert_lowercase(s) == -1) {
+    fclose(file);
     return -2;
   }
   n = strlen(s);
@@ -50,18 +53,24 @@ int populate_grid(char grid[][MAX_SIZE], char filename_to_read_from[]){
 
   for (int i = 1; i < n; i++) {
     if (fscanf(file, "%s", s) != 1) {
+      fclose(file);
       return -2;
     }
     if ((int) strlen(s) != n || convert_lowercase(s) == -1) {
+      fclose(file);
       return -2;
     }
     strcpy(grid[i], s);
   }
 
-  char end[1];
-  if (strcmp(end, "") != 0){
+  char end[2];
+  fscanf(file, "%2c", end);
+  printf("end: %d\n", end[1]);
+  if (end[1] != 10){
+    fclose(file);
     return -2;
   }
+  fclose(file);
   return n;
 }
 
