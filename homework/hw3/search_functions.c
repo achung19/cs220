@@ -15,6 +15,8 @@ int convert_lowercase(char s[]) {
   for (int i = 0; i < (int) strlen(s); i++) {
     if (s[i] >= 65 && s[i] <= 90) {
       s[i] += 'a' - 'A';
+    } else if (s[i] == 10) {
+      s[i] = '\0';
     } else if (s[i] < 97 || s[i] > 122) {
       return -1;
     }
@@ -37,7 +39,7 @@ int populate_grid(char grid[][MAX_SIZE], char filename_to_read_from[]){
 
   char s[MAX_SIZE+2];
   int n = 0;
-  if (fscanf(file, " %s", s) != 1) {
+  if (fscanf(file, "%s", s) != 1) {
     fclose(file);
     return -2;
   }
@@ -51,21 +53,24 @@ int populate_grid(char grid[][MAX_SIZE], char filename_to_read_from[]){
   n = strlen(s);
   strcpy(grid[0], s);
 
+  // removes newline and moves onto next line
+  fgetc(file);
+
   for (int i = 1; i < n; i++) {
-    if (fscanf(file, " %s", s) != 1) {
+    if (fgets(s, MAX_SIZE+2, file) == NULL) {
       fclose(file);
       return -2;
     }
-    if ((int) strlen(s) != n || convert_lowercase(s) == -1) {
+    if (convert_lowercase(s) == -1 || (int) strlen(s) != n) {
       fclose(file);
       return -2;
     }
     strcpy(grid[i], s);
   }
   
-  char end[2];
-  fscanf(file, "%2c", end);
-  if (end[1] != 10 || end[0] != 10){
+  char end;
+  fscanf(file, "%c", &end);
+  if (end != 10){
     fclose(file);
     return -2;
   }
