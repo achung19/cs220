@@ -1,4 +1,4 @@
-0;136;0cCC=gcc
+CC=gcc
 CFLAGS=-std=c99 -pedantic -Wall -Wextra
 
 main: word_search.o search_functions.o
@@ -6,7 +6,7 @@ main: word_search.o search_functions.o
 
 test: test_search_functions.o search_functions.o
 	$(CC) -o test_search_functions test_search_functions.o search_functions.o
-	test_search_functions
+	./test_search_functions
 
 test_search_functions.o: test_search_functions.c search_functions.h
 	$(CC) $(CFLAGS) -c test_search_functions.c
