@@ -21,10 +21,10 @@ int main(int argc, char* argv[]) {
   int n = populate_grid(grid, argv[1]);
   if (n == -1) {
     printf("Grid file failed to open.\n");
-    return n;
+    return -1;
   } else if (n == -2) {
-    printf("Invalid Grid.\n");
-    return n;
+    printf("Invalid grid.\n");
+    return -2;
   }
 
   // Scans for words until EOF is passed.
