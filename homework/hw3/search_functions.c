@@ -4,14 +4,15 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "search_functions.h"
 
 /* 
  * <Replace this with your own useful comment.> 
  */
 int convert_lowercase(char s[]) {
-  for (int i = 0; i < strlen(s); i++) {
-    if (s[i] >= 65 || s[i] <= 90) {
+  for (int i = 0; i < (int) strlen(s); i++) {
+    if (s[i] >= 65 && s[i] <= 90) {
       s[i] += 'a' - 'A';
     } else if (s[i] < 97 || s[i] > 122) {
       return -1;
@@ -27,7 +28,7 @@ int convert_lowercase(char s[]) {
  * If the file contains an invalid grid, this function returns -2.
  */
 int populate_grid(char grid[][MAX_SIZE], char filename_to_read_from[]){
-
+  
   FILE * file = fopen(filename_to_read_from, "r");
   if (file == NULL) {
     return -1;
@@ -35,10 +36,10 @@ int populate_grid(char grid[][MAX_SIZE], char filename_to_read_from[]){
 
   char s[MAX_SIZE+2];
   int n = 0;
-  if (fscanf(file, "%s", &s) != 1) {
+  if (fscanf(file, "%s", s) != 1) {
     return -2;
   }
-  if (strlen(s) > MAX_SIZE || strlen(s) == 0) {
+  if ((int) strlen(s) > MAX_SIZE || strlen(s) == 0) {
     return -2;
   } else if (convert_lowercase(s) == -1) {
     return -2;
@@ -47,17 +48,17 @@ int populate_grid(char grid[][MAX_SIZE], char filename_to_read_from[]){
   strcpy(grid[0], s);
 
   for (int i = 1; i < n; i++) {
-    if (fscanf(file, "%s", &s) != 1) {
+    if (fscanf(file, "%s", s) != 1) {
       return -2;
     }
-    if (strlen(s) != n || convert_lowercase(s) == -1) {
+    if ((int) strlen(s) != n || convert_lowercase(s) == -1) {
       return -2;
     }
     strcpy(grid[i], s);
   }
 
   char end[1];
-  if (end != ""){
+  if (strcmp(end, "") != 0){
     return -2;
   }
   return n;
@@ -68,11 +69,11 @@ int populate_grid(char grid[][MAX_SIZE], char filename_to_read_from[]){
  */
 int find_at_horizontal(char grid[][MAX_SIZE], int n, char word[], int loc[]) {
 
-  if (loc[1]+strlen(word) > n) {
+  if (loc[1]+(int) strlen(word) > n) {
     return 0;
   }
 
-  for (int i = 0; i < strlen(word); i++) {
+  for (int i = 0; i < (int) strlen(word); i++) {
     if (grid[loc[0]][loc[1]+i] != word[i]) {
       return 0;
     }
@@ -85,11 +86,11 @@ int find_at_horizontal(char grid[][MAX_SIZE], int n, char word[], int loc[]) {
  */
 int find_at_vertical(char grid[][MAX_SIZE], int n, char word[], int loc[]) {
 
-  if (loc[1]+strlen(word) > n) {
+  if (loc[0]+(int) strlen(word) > n) {
     return 0;
   }
 
-  for (int i = 0; i < strlen(word); i++) {
+  for (int i = 0; i < (int) strlen(word); i++) {
     if (grid[loc[0]+i][loc[1]] != word[i]) {
       return 0;
     }
@@ -105,7 +106,8 @@ int find_right(char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
   
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
-      if (find_at_horizontal(grid, n, word, {i,j}) == 1) {
+      int arr[] = {i,j};
+      if (find_at_horizontal(grid, n, word, arr) == 1) {
 	fprintf(write_to, "%s %d %d R\n", word, i, j);
 	count++;
       }
@@ -120,17 +122,18 @@ int find_right(char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
  */
 int find_left (char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
   char rev_word[MAX_SIZE+1];
-  for (int i = 0; i < strlen(word); i++) {
+  for (int i = 0; i < (int) strlen(word); i++) {
     rev_word[i] = word[strlen(word)-1-i];
   }
-  rev_word[strlen(word)] = '\0';
-  
+  rev_word[(int) strlen(word)] = '\0';
+
   int count = 0;
   
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
-      if (find_at_horizontal(grid, n, rev_word, {i,j}) == 1) {
-	fprintf(write_to, "%s %d %d L\n", word, i, j);
+      int arr[] = {i,j};
+      if (find_at_horizontal(grid, n, rev_word, arr) == 1) {
+	fprintf(write_to, "%s %d %d L\n", word, i, j+(int) strlen(word)-1);
 	count++;
       }
     }
@@ -147,7 +150,8 @@ int find_down (char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
   
   for (int j = 0; j < n; j++) {
     for (int i = 0; i < n; i++) {
-      if (find_at_horizontal(grid, n, word, {i,j}) == 1) {
+      int arr[] = {i,j};
+      if (find_at_vertical(grid, n, word, arr) == 1) {
 	fprintf(write_to, "%s %d %d D\n", word, i, j);
 	count++;
       }
@@ -162,8 +166,8 @@ int find_down (char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
  */
 int find_up (char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
   char rev_word[MAX_SIZE+1];
-  for (int i = 0; i < strlen(word); i++) {
-    rev_word[i] = word[strlen(word)-1-i];
+  for (int i = 0; i < (int) strlen(word); i++) {
+    rev_word[i] = word[(int) strlen(word)-1-i];
   }
   rev_word[strlen(word)] = '\0';
 
@@ -171,8 +175,9 @@ int find_up (char grid[][MAX_SIZE], int n, char word[], FILE *write_to){
   
   for (int j = 0; j < n; j++) {
     for (int i = 0; i < n; i++) {
-      if (find_at_horizontal(grid, n, rev_word, {i,j}) == 1) {
-	fprintf(write_to, "%s %d %d U\n", word, i, j);
+      int arr[] = {i,j};
+      if (find_at_vertical(grid, n, rev_word, arr) == 1) {
+	fprintf(write_to, "%s %d %d U\n", word, i+(int) strlen(word)-1, j);
 	count++;
       }
     }

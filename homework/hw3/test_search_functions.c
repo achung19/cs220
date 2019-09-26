@@ -31,7 +31,7 @@ void test_find_all();
 /*
  * Main method which calls all test functions.
  */
-int main(void) {
+int main() {
   printf("Testing file_eq...\n");
   test_file_eq();
   printf("Passed file_eq test.\n\n");
