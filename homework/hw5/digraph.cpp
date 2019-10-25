@@ -3,10 +3,13 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
+#include <functional>
 #include <string>
 #include <vector>
 #include <map>
 #include <utility>
+#include <cctype>
 #include "digraph.h"
 
 using std::string;
@@ -18,11 +21,13 @@ using std::map;
 using std::stringstream;
 using std::endl;
 using std::cerr;
+using std::transform;
+using std::cout;
 
 /*
  *
  */
-pair<int, vector<string>> readInputFileHeader(ifstream inFile) {
+pair<int, vector<string>> readInputFileHeader(ifstream &inFile) {
   int numDigraphs;
   vector<string> digraphVect;
 
@@ -43,31 +48,44 @@ pair<int, vector<string>> readInputFileHeader(ifstream inFile) {
  *
  */
 map<string, vector<string>> mapWords(vector<string> digraphVect,
-				     ifstream inFile) {
+				     ifstream &inFile) {
+  // initialize the map to contain empty vectors for every digraph
   map<string, vector<string>> wordMap;
-
-  // create an empty vector for each digraph in the map
   for(vector<string>::iterator iter = digraphVect.begin();
       iter != digraphVect.end();
       iter++) {
-    if(wordMap.find(*iter) != wordMap.end()) {
-      vector<string> v;
-      wordMap[*iter] = v;
-    }
+    wordMap[*iter];
   }
-
+    
   // extract each word from the input file
-  string temp;
-  while(inFile >> temp) {
+  string nextWord;
+  while(inFile >> nextWord) {
+    // remove punctuation
+    if(nextWord.find(',') != string::npos) { 
+      nextWord.replace(nextWord.find(','), nextWord.find(',')+1, "");
+    }
+    if(nextWord.find('.') != string::npos) { 
+      nextWord.replace(nextWord.find('.'), nextWord.find('.')+1, "");
+    }
+    if(nextWord.find('?') != string::npos) { 
+      nextWord.replace(nextWord.find('?'), nextWord.find('?')+1, "");
+    }
+    if(nextWord.find('!') != string::npos) { 
+      nextWord.replace(nextWord.find('!'), nextWord.find('!')+1, "");
+    }
+    // convert lowercase and put into nextWord using lambda func
+    transform(nextWord.begin(), nextWord.end(), nextWord.begin(),
+	      [](unsigned char c) { return std::tolower(c); });
+    
     // check for each digraph in that word
     for(vector<string>::iterator iter = digraphVect.begin();
 	iter != digraphVect.end();
 	iter++) {
       // if the word contains a digraph, push the word
       // onto the corresponding digraph vector in the map
-      if(temp.find(*iter) != string::npos) {
-	wordMap[*iter].push_back(temp);
-      }   
+      if(nextWord.find(*iter) != string::npos) {
+	wordMap[*iter].push_back(nextWord);
+      }
     }
   }
 
@@ -86,7 +104,7 @@ string wordMapToString(map<string, vector<string>> wordMap, char c) {
       stringbuilder << mapIter->first << ": [";
 
       // for each word matching the digraph
-      bool first = true;
+      bool first = true; 
       for(vector<string>::iterator vectIter = mapIter->second.begin();
 	  vectIter != mapIter->second.end();
 	  vectIter++) {
@@ -98,7 +116,7 @@ string wordMapToString(map<string, vector<string>> wordMap, char c) {
 	  stringbuilder << ", " << *vectIter;
 	}
       }
-
+      
       stringbuilder << "]" << endl;
     }
   } else if(c == 'r') {
@@ -118,12 +136,12 @@ string wordMapToString(map<string, vector<string>> wordMap, char c) {
 	// print the word
 	if(first) {
 	  stringbuilder << *vectIter;
-	  first = false;
+	    first = false;
 	} else {
 	  stringbuilder << ", " << *vectIter;
 	}
       }
-
+      
       stringbuilder << "]" << endl;
     }
   } else if(c == 'c') {
