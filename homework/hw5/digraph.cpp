@@ -73,7 +73,7 @@ map<string, vector<string>> mapWords(vector<string> digraphVect,
     if(nextWord.find('!') != string::npos) { 
       nextWord.replace(nextWord.find('!'), nextWord.find('!')+1, "");
     }
-    // convert lowercase and put into nextWord using lambda func
+    // convert lowercase using lambda func
     transform(nextWord.begin(), nextWord.end(), nextWord.begin(),
 	      [](unsigned char c) { return std::tolower(c); });
     
@@ -181,7 +181,58 @@ string wordMapToString(map<string, vector<string>> wordMap, char c) {
       stringbuilder << "]" << endl;
     }
   } else {
-    cerr << "Order must be 'a', 'r', or 'c'." << endl;
+    cerr << "Invalid arguments" << endl;
+    exit(1);
+  }
+
+  return stringbuilder.str();
+}
+
+/*
+ *
+ */
+string processNum(unsigned int numDigraphs, map<string, vector<string>> wordMap) {
+  stringstream stringbuilder;
+  bool isNone = true;
+  
+  for(map<string, vector<string>>::iterator mapIter = wordMap.begin();
+      mapIter != wordMap.end();
+      mapIter++) {
+    if(mapIter->second.size() == numDigraphs) {
+      isNone = false;
+      stringbuilder << mapIter->first << endl;
+      for(vector<string>::iterator vectIter = mapIter->second.begin();
+	  vectIter != mapIter->second.end();
+	  vectIter++) {
+	stringbuilder << *vectIter << endl;
+      }
+    }
+  }
+  if(isNone) return "None\n";
+  return stringbuilder.str();
+}
+
+/*
+ *
+ */
+string processString(string digraph, map<string, vector<string>> wordMap) {
+  // convert lowercase using lambda func
+  transform(digraph.begin(), digraph.end(), digraph.begin(),
+	    [](unsigned char c) { return std::tolower(c); });
+
+  stringstream stringbuilder;
+  
+  map<string, vector<string>>::iterator itFinder = wordMap.find(digraph);
+  if(itFinder == wordMap.end()) {
+    return "No such digraph\n";
+  }
+
+  stringbuilder << itFinder->second.size() << endl;
+
+  for(vector<string>::iterator vectIter = itFinder->second.begin();
+      vectIter != itFinder->second.end();
+      vectIter++) {
+    stringbuilder << *vectIter << endl;
   }
 
   return stringbuilder.str();

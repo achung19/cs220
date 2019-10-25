@@ -8,6 +8,7 @@
 #include <utility>
 #include "digraph.h"
 
+using std::cin;
 using std::cout;
 using std::cerr;
 using std::endl;
@@ -17,13 +18,14 @@ using std::make_pair;
 using std::vector;
 using std::map;
 using std::string;
+using std::stoul;
 
 /*
  * Calls the functions declared in digraph.h
  */
 int main(int argc, char *argv[]) {
   if(argc != 3) {
-    cerr << "Usage: .//digraphAnalyzer input.txt order" << endl;
+    cerr << "Invalid arguments" << endl;
     exit(1);
   }
 
@@ -34,12 +36,24 @@ int main(int argc, char *argv[]) {
   }
 
   pair<int, vector<string>> inFileHeader = readInputFileHeader(inFile);
-  // int numDigraphs = inFileHeader.first;
   vector<string> digraphVect = inFileHeader.second;
 
   map<string, vector<string>> wordMap = mapWords(digraphVect, inFile);
 
   cout << wordMapToString(wordMap, *argv[2]);
-  
+
+  cout << "q?>";
+  string query;
+  cin >> query;
+  while (query.compare("quit") != 0) {
+    if(query.find_first_not_of("0123456789") == string::npos) {
+      cout << processNum(stoul(query), wordMap);
+    } else {
+      cout << processString(query, wordMap);
+    }
+    cout << "q?>";
+    cin >> query;
+  }
+
   return 0;
 }

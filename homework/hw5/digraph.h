@@ -22,3 +22,13 @@ std::map<std::string, std::vector<std::string> > mapWords(std::vector<std::strin
  *
  */
 std::string wordMapToString(std::map<std::string, std::vector<std::string> >, char);
+
+/*
+ *
+ */
+std::string processNum(unsigned int, std::map<std::string, std::vector<std::string>>);
+
+/*
+ *
+ */
+std::string processString(std::string, std::map<std::string, std::vector<std::string>>);
