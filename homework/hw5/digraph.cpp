@@ -2,21 +2,27 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <vector>
 #include <map>
 #include <utility>
+#include "digraph.h"
 
+using std::string;
 using std::ifstream;
 using std::pair;
 using std::make_pair;
 using std::vector;
 using std::map;
+using std::stringstream;
+using std::endl;
+using std::cerr;
 
 /*
  *
  */
-pair<int, vector<string>> readInputFile(ifstream inFile) {
+pair<int, vector<string>> readInputFileHeader(ifstream inFile) {
   int numDigraphs;
   vector<string> digraphVect;
 
@@ -45,7 +51,8 @@ map<string, vector<string>> mapWords(vector<string> digraphVect,
       iter != digraphVect.end();
       iter++) {
     if(wordMap.find(*iter) != wordMap.end()) {
-      wordMap[*iter] =  vector<string> v;
+      vector<string> v;
+      wordMap[*iter] = v;
     }
   }
 
@@ -67,6 +74,97 @@ map<string, vector<string>> mapWords(vector<string> digraphVect,
   return wordMap;
 }
 
-string stringVectorToString(vector<string> stringVect) {
-  
+string wordMapToString(map<string, vector<string>> wordMap, char c) {
+  stringstream stringbuilder;
+
+  if(c == 'a') {
+    // for each digraph in map
+    for(map<string, vector<string>>::iterator mapIter = wordMap.begin();
+	mapIter != wordMap.end();
+	mapIter++) {
+      // print the digraph
+      stringbuilder << mapIter->first << ": [";
+
+      // for each word matching the digraph
+      bool first = true;
+      for(vector<string>::iterator vectIter = mapIter->second.begin();
+	  vectIter != mapIter->second.end();
+	  vectIter++) {
+	// print the word
+	if(first) {
+	  stringbuilder << *vectIter;
+	  first = false;
+	} else {
+	  stringbuilder << ", " << *vectIter;
+	}
+      }
+
+      stringbuilder << "]" << endl;
+    }
+  } else if(c == 'r') {
+    // for each digraph in map
+    for(map<string, vector<string>>::reverse_iterator mapIter =
+	  wordMap.rbegin();
+	mapIter != wordMap.rend();
+	mapIter++) {
+      // print the digraph
+      stringbuilder << mapIter->first << ": [";
+
+      // for each word matching the digraph
+      bool first = true;
+      for(vector<string>::iterator vectIter = mapIter->second.begin();
+	  vectIter != mapIter->second.end();
+	  vectIter++) {
+	// print the word
+	if(first) {
+	  stringbuilder << *vectIter;
+	  first = false;
+	} else {
+	  stringbuilder << ", " << *vectIter;
+	}
+      }
+
+      stringbuilder << "]" << endl;
+    }
+  } else if(c == 'c') {
+    // reverse the map keys and values, replacing the vector with its size
+    map<int, string> reversedMap;
+    for(map<string, vector<string>>::iterator revIter = wordMap.begin();
+	revIter != wordMap.end();
+	revIter++) {
+      reversedMap[revIter->second.size()] = revIter->first;
+    }
+    
+    // for each digraph in map (in count order)
+    for(map<int, string>::reverse_iterator mapIter = reversedMap.rbegin();
+	mapIter != reversedMap.rend();
+	mapIter++) {
+      // print the digraph
+      stringbuilder << mapIter->second << ": [";
+
+      // find the map pair in the original map
+      map<string, vector<string>>::iterator digraphIter =
+	wordMap.find(mapIter->second);
+      
+      // for each word matching the digraph
+      bool first = true;
+      for(vector<string>::iterator vectIter = digraphIter->second.begin();
+	  vectIter != digraphIter->second.end();
+	  vectIter++) {
+	// print the word
+	if(first) {
+	  stringbuilder << *vectIter;
+	  first = false;
+	} else {
+	  stringbuilder << ", " << *vectIter;
+	} 
+      }
+      
+      stringbuilder << "]" << endl;
+    }
+  } else {
+    cerr << "Order must be 'a', 'r', or 'c'." << endl;
+  }
+
+  return stringbuilder.str();
 }
