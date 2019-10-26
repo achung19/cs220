@@ -18,6 +18,7 @@ using std::make_pair;
 using std::vector;
 using std::map;
 using std::string;
+using std::stol;
 using std::stoul;
 
 /*
@@ -56,7 +57,12 @@ int main(int argc, char *argv[]) {
     // if input is a number, process the number,
     // otherwise process the string
     if(query.find_first_not_of("0123456789") == string::npos) {
-      cout << processNum(stoul(query), wordMap);
+      // checks for negative input or max input
+      if (stol(query) > 4294967295 || stol(query) < 0) {
+	cout << "None" << endl;
+      } else {
+	cout << processNum(stoul(query), wordMap);
+      }
     } else {
       cout << processString(query, wordMap);
     }

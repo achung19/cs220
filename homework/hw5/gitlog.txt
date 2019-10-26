@@ -481,3 +481,182 @@ Author: Alisen Chung <achung19@jhu.edu>
 Date:   Tue Sep 3 15:18:11 2019 -0400
 
     created README
+commit 81d7b50f0c20159b8fc81f1f2d346607db332369
+Author: AlisenC <achung19@jhu.edu>
+Date:   Fri Oct 25 22:15:20 2019 -0400
+
+    updated c version of wordMapToString, fixed bugs, created README
+
+commit 385039110538e3c378a1a2e6325e8c969d0c041d
+Author: AlisenC <achung19@jhu.edu>
+Date:   Fri Oct 25 15:44:22 2019 -0400
+
+    removed misspelled man, updated gitlog
+
+commit 49dd71aeacbc9f9b8fc3b56dd71b0716967803a2
+Author: AlisenC <achung19@jhu.edu>
+Date:   Fri Oct 25 15:42:51 2019 -0400
+
+    completed query, tested functions, completed assignment
+
+commit c12ff7b9f13648d83fe2526a7c2e9b158f8cd9fc
+Author: AlisenC <achung19@jhu.edu>
+Date:   Fri Oct 25 14:47:28 2019 -0400
+
+    created Makefile, completed first part of digraph functions (before query)
+
+commit de4495ac310d7ea70581bdb38d0555fb84972c78
+Author: AlisenC <achung19@jhu.edu>
+Date:   Thu Oct 24 23:22:28 2019 -0400
+
+    created digraph.h, updated digraphAnalyzer.cpp to run functions, updated digraph.cpp functions\n\ntestdescription
+
+commit cb66e55688e2c989c5cec0239d96a54462268c78
+Author: AlisenC <achung19@jhu.edu>
+Date:   Thu Oct 24 03:59:02 2019 -0400
+
+    created gitlog.txt
+
+commit 5e4afdd72b644a8f032703d3564e46f4de76430f
+Author: AlisenC <achung19@jhu.edu>
+Date:   Thu Oct 24 03:57:18 2019 -0400
+
+    created digraphAnalyzer.cpp and digraph.cpp\n\ncreated skeleton for digraphAnalyzer \ncreated readInput and mapWords for digraph
+
+commit f4a433c3aa956e13b29c186fe85f60ff80303a5a
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Thu Sep 26 14:34:28 2019 -0400
+
+    added check for eof to satisfy buggy autograder
+
+commit 42dade4c185a659607617bc695c889877a852304
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Thu Sep 26 14:16:24 2019 -0400
+
+    added tests and test files
+
+commit 16debc140cc68b407f32ab384cd28e2e613d26b0
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Thu Sep 26 13:55:39 2019 -0400
+
+    removed bug with scanf
+
+commit 8f6e9031122203fb0a62cb755e593d4a2f1400b1
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Thu Sep 26 12:55:30 2019 -0400
+
+    added check for newline at end of file
+
+commit b1b80b40d123e3eaf2d9f33fe0e0a60726299a78
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Thu Sep 26 01:22:38 2019 -0400
+
+    forgot to remove printf statement
+
+commit 72c2e5fd45e597d8cd2c99559401f39fe9b3ec84
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Thu Sep 26 01:13:36 2019 -0400
+
+    fixed missing some invalid grid errors
+
+commit fb49875eb7f81d0470983bcda05805021a002b24
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Wed Sep 25 21:40:00 2019 -0400
+
+    added comments
+
+commit be3f6bda73a9fd93711cb659b6d7af26d5f18516
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Wed Sep 25 21:33:43 2019 -0400
+
+    added tests for all helper functions
+
+commit 16cf56bd7293a9e48ad28c2e1532b21bbe00dbc8
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Wed Sep 25 20:24:12 2019 -0400
+
+    removed bug extra fclose
+
+commit eb61ed12c6485f9edd363ef9c9b37d7185dfebd2
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Wed Sep 25 20:22:13 2019 -0400
+
+    updated files, working now
+
+commit ec91b4f9d51da2368201d8a095fa6187e76cdc3a
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Wed Sep 25 12:39:17 2019 -0400
+
+    implemented all functions
+
+commit 149357dd74b3bfa4d853833218e37321f1a9e21e
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Thu Sep 12 20:08:04 2019 -0400
+
+    updated arithmetic.c   -added comments
+
+commit d750f52be9a6658e799e5dc6740bae3c82da2798
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Tue Sep 10 22:23:14 2019 -0400
+
+    updated gpa_simple.c   -included invalid grade
+
+commit 324467e5fc5f5414760f34b7f29b2abed47ddaf4
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Tue Sep 10 22:19:10 2019 -0400
+
+    updated gpa_simple.c
+
+commit 014ef201b453eefeabfdda2b67a17618df892eaa
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Tue Sep 10 21:10:55 2019 -0400
+
+    updated arithmetic.c   -added correct return value
+
+commit 22ac0f66d6c122a1b4205da7db62bfa9e894faa3
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Tue Sep 10 20:59:48 2019 -0400
+
+    updated arithmetic.c   -added correct expression
+
+commit 85527afe58223e684a9d09406b1631dd2d4f3d19
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Tue Sep 10 20:24:04 2019 -0400
+
+    updated arithmetic.c   -added check for no inputs
+
+commit 6dee5ba85d472fafc3648e2358fd1bfa284db771
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Tue Sep 10 20:06:59 2019 -0400
+
+    updated arithmetic.c
+
+commit 37db16d6625646391a155de9e562481663e0617e
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Tue Sep 10 15:30:00 2019 -0400
+
+    created arithmetic.c
+
+commit 7d8c946ea3be6192b65c928bc660e7508229044a
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Tue Sep 3 16:09:33 2019 -0400
+
+    updated hw0 prizes
+
+commit d757cec54e26ca49c805a71cfb44dfe8ae0d78ea
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Tue Sep 3 15:51:44 2019 -0400
+
+    created hw0 prizes
+
+commit bc275e6c8e10ec3827fba952d12feca0fa3061a3
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Tue Sep 3 15:21:35 2019 -0400
+
+    updated README
+
+commit 8a4c62bdc1e2b0ccc2c7cb1a15f8b78b4a59899a
+Author: Alisen Chung <achung19@jhu.edu>
+Date:   Tue Sep 3 15:18:11 2019 -0400
+
+    created README
