@@ -1,0 +1,15 @@
+Alisen Chung
+achung19
+
+I first read the header file by reading the integer, then looping to read the next digraph the specified integer number of times. Originally I returned both the integer and the actual digraph vector, but it turned out that I didn't need the integer anyways, but I kept the original return value anyway and just ignored it.
+
+To map the words, i first read in the next word, then removed the punctuation by looking for it with string.find() and replacing it with an empty string. Although we could have assumed that the punctuation would only appear at the end of the string, this method catches punctuation that appears in the middle of the string as well. The trade off is that string.find() is called 3 times per 4 total punctuations, which means that if the string is very long, this implementation could end up being veery slow. It also does not catch multiple instances of the same punctuation (e.g. the string e.g.) A clever thing I did was to use std::transform and a lambda function to return the corresponding lowercase character to loop through each character in the string and convert them all to lowercase, catching the case where there is a capitalization in the middle of the wOrd, or if the entire WORD is capitalized. I then loop through the digraphs to find in the string and put the string in the corresponding vector if it is found.
+
+I then iterate through for a and reverse iterate for r command line inputs. Iterating by count was trickier: I used a vector of pairs, where each pair contained the digraph and associated words (I looped through the map and put each iterator pair into the vector), and sorted the vector by word vector size. I then iterated through the vector normally and printed each digraph and word vector.
+
+I then queried the user in main and checked whether the input was a number or non-number. The way I did this was I used a string.find_first_not_of to look for the first non-digit (0123456789). If there are no digits, then the input will be a string, and if a digit is found, then the input will be a number. This was looped as usual until the input was "quit".
+
+If the input was a number, then I looped through the map for each digraph, and if the number of words in the map matched the number, I turned off a flag for printing "None" and placed each of the words in the stringstream.
+At the end, if the flag was not turned off, then I return None to print in main; otherwise I return the stringstream string.
+
+If the input was a string, then I map.find() the corresponding digraph. If it is not found, then I output "No such digraph"; otherwise, I place the size of the vector and each word in the found vector into the stringstream.

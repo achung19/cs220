@@ -25,7 +25,15 @@ using std::transform;
 using std::cout;
 
 /*
+ * Reads the input file header
  *
+ * Parameters:
+ * inFile: input file pointer pointing to start of
+ * file to read from
+ * 
+ * Returns:
+ * an int representing the number of digraphs
+ * a vector of the digraphs
  */
 pair<int, vector<string>> readInputFileHeader(ifstream &inFile) {
   int numDigraphs;
@@ -45,7 +53,14 @@ pair<int, vector<string>> readInputFileHeader(ifstream &inFile) {
 }
 
 /*
+ * Maps the digraphs to a vector of words in the text file
  *
+ * Parameters:
+ * digraphVect: a vector of digraphs to map
+ * inFile: an input file pointing to the start of the texts
+ *
+ * Returns:
+ * a map from a digraph to a vector of words that contain the digraph
  */
 map<string, vector<string>> mapWords(vector<string> digraphVect,
 				     ifstream &inFile) {
@@ -92,11 +107,20 @@ map<string, vector<string>> mapWords(vector<string> digraphVect,
   return wordMap;
 }
 
+/*
+ * Converts a map of digraphs and words to a string
+ *
+ * Parameters:
+ * wordMap: a map to convert to a string
+ * c: a character of either a, r,, or c denoting the order
+ * of iteration
+ * a for ASCII order, r for reverse ASCII order, c for count order
+ */
 string wordMapToString(map<string, vector<string>> wordMap, char c) {
   stringstream stringbuilder;
 
   if(c == 'a') {
-    // for each digraph in map
+    // for each digraph in map (iterate thru ASCII order)
     for(map<string, vector<string>>::iterator mapIter = wordMap.begin();
 	mapIter != wordMap.end();
 	mapIter++) {
@@ -120,7 +144,7 @@ string wordMapToString(map<string, vector<string>> wordMap, char c) {
       stringbuilder << "]" << endl;
     }
   } else if(c == 'r') {
-    // for each digraph in map
+    // for each digraph in map (iterate thru reverse ASCII order)
     for(map<string, vector<string>>::reverse_iterator mapIter =
 	  wordMap.rbegin();
 	mapIter != wordMap.rend();
@@ -145,29 +169,34 @@ string wordMapToString(map<string, vector<string>> wordMap, char c) {
       stringbuilder << "]" << endl;
     }
   } else if(c == 'c') {
-    // reverse the map keys and values, replacing the vector with its size
-    map<int, string> reversedMap;
-    for(map<string, vector<string>>::iterator revIter = wordMap.begin();
-	revIter != wordMap.end();
-	revIter++) {
-      reversedMap[revIter->second.size()] = revIter->first;
+    // create a new vector of pairs containing the digraph
+    // and associated words
+    vector<pair<string, vector<string>>> pairVect;
+    for(map<string, vector<string>>::iterator pairIter = wordMap.begin();
+	pairIter != wordMap.end();
+	pairIter++) {
+      pairVect.push_back(make_pair(pairIter->first, pairIter->second));
     }
-    
+
+    // sort the vector by word vector size
+    // from largest to smallest size
+    sort(pairVect.begin(), pairVect.end(),
+	 [](pair<string, vector<string>> p1,
+	    pair<string, vector<string>> p2)
+	 { return (p1.second.size() > p2.second.size()); });
+	 
     // for each digraph in map (in count order)
-    for(map<int, string>::reverse_iterator mapIter = reversedMap.rbegin();
-	mapIter != reversedMap.rend();
+    for(vector<pair<string, vector<string>>>::iterator mapIter =
+	  pairVect.begin();
+	mapIter != pairVect.end();
 	mapIter++) {
       // print the digraph
-      stringbuilder << mapIter->second << ": [";
-
-      // find the map pair in the original map
-      map<string, vector<string>>::iterator digraphIter =
-	wordMap.find(mapIter->second);
+      stringbuilder << mapIter->first << ": [";
       
       // for each word matching the digraph
       bool first = true;
-      for(vector<string>::iterator vectIter = digraphIter->second.begin();
-	  vectIter != digraphIter->second.end();
+      for(vector<string>::iterator vectIter = mapIter->second.begin();
+	  vectIter != mapIter->second.end();
 	  vectIter++) {
 	// print the word
 	if(first) {
@@ -189,9 +218,19 @@ string wordMapToString(map<string, vector<string>> wordMap, char c) {
 }
 
 /*
+ * Takes in a number and a map from digraphs to word vectors and outputs 
+ * every digraph that has the specified number of associated words along
+ * with those associated words
  *
+ * Parameters:
+ * numDigraphs: number of words to look for for each digraph
+ * wordMap: map from digraphs to list of words
+ *
+ * Returns:
+ * string of a digraph and its associated words
  */
-string processNum(unsigned int numDigraphs, map<string, vector<string>> wordMap) {
+string processNum(unsigned int numDigraphs,
+		  map<string, vector<string>> wordMap) {
   stringstream stringbuilder;
   bool isNone = true;
   
@@ -213,7 +252,15 @@ string processNum(unsigned int numDigraphs, map<string, vector<string>> wordMap)
 }
 
 /*
+ * Takes in a digraph and a map from digraphs to word vectors and outputs 
+ * the number of associated words and said associated words
  *
+ * Parameters:
+ * digraph: the digraph to look for
+ * wordMap: map from digraphs to list of words
+ *
+ * Returns:
+ * string of the number of digraph's associated words and associated words
  */
 string processString(string digraph, map<string, vector<string>> wordMap) {
   // convert lowercase using lambda func
