@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
   while (query.compare("quit") != 0) {
     // if input is a number, process the number,
     // otherwise process the string
-    if(query.find_first_not_of("0123456789") == string::npos) {
+    if(query.find_first_not_of("0123456789+-") == string::npos) {
       // checks for negative input or max input
       if (stol(query) > 4294967295 || stol(query) < 0) {
 	cout << "None" << endl;
