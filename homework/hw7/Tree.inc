@@ -3,11 +3,6 @@
 #include <sstream>
 #include "Tree.h"
 
-using std::string;
-using std::stringstream;
-using std::endl;
-using std::ostream;
-
 // adding comments here is ugly
 
 /*
@@ -29,7 +24,7 @@ Tree<T>::~Tree<T>() {
  * Same operators as CTree.
  */
 template<typename E>
-ostream& operator<<(ostream& os, Tree<E>& rt) {
+std::ostream& operator<<(std::ostream& os, Tree<E>& rt) {
   return os << rt.toString();
 }
 
@@ -128,9 +123,9 @@ bool Tree<T>::addChild(Tree<T> *root) {
  * No changes.
  */
 template<typename T>
-string Tree<T>::toString() {
-  stringstream stringbuilder;
-  stringbuilder << this->data << endl;
+std::string Tree<T>::toString() {
+  std::stringstream stringbuilder;
+  stringbuilder << this->data << std::endl;
   if(this->kids != NULL) {
     stringbuilder << this->kids->toString();
   }
