@@ -216,7 +216,46 @@ public:
     delete t4;
   }
 
-  
+  // personal tests
+  // quick test for generic tree
+  static void test_addChild() {
+    Tree<int>* t1 = new Tree<int>(1);
+    assert(t1->addChild(2));
+    assert(t1->addChild(5));
+    
+    Tree<int>* t2 = new Tree<int>(3);
+    assert(t2->addChild(4));
+    assert(t2->addChild(3));
+    
+    assert(t1->addChild(t2));
+    assert(!(t1->addChild(t2)));
+    assert(t1->toString() == "1\n2\n3\n3\n4\n5\n");
+
+    delete t1;
+  }
+
+  // tests equality in roots, tests for add sibling on root
+  static void test_rootEquality() {
+    Tree<char>* t1 = new Tree<char>('a');
+    Tree<char>* t2 = new Tree<char>('a');
+    assert(*t1 == *t2);
+
+    assert(t1->addChild('b'));
+    assert(!(*t1 == *t2));
+    assert(t2->addChild('b'));
+    assert(*t1 == *t2);
+
+    Tree<char>* t3 = new Tree<char>('z');
+    Tree<char>* t4 = new Tree<char>('z');
+
+    assert(!t3->addSibling('y'));
+    assert(*t3 == *t4);
+
+    delete t1;
+    delete t2;
+    delete t3;
+    delete t4;
+  }
 };
 
 
@@ -229,5 +268,7 @@ int main(void) {
     TTreeTest::testCaretOp();
     TTreeTest::testOutputOp();
     TTreeTest::testEqualityOp();  
+    TTreeTest::test_addChild();
+    TTreeTest::test_rootEquality();
     cout << "Tree tests passed" << endl;
 }

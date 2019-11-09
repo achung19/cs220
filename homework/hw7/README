@@ -6,3 +6,5 @@ The only helper function I added was to the == operator: I added a helper functi
 I also used a stringbuilder for my toString function to help make the code more readable, since string appends get very messy.
 
 The CTree implementation was very quick and easy, and the compilor/runtime errors made any bugs easy to spot. I copied the files over from the CTree implementation to the generic Tree implementation and added some template keywords. Some errors came with the friend function not being in the same class, so I chose to use a different generic letter (G) for it.
+
+I added 2 tests in TTreeTest.cpp.
