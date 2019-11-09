@@ -1,30 +1,35 @@
 #include <cstdlib>
 #include <string>
 #include <sstream>
-#include "CTree.h"
+#include "Tree.h"
 
 using std::string;
 using std::stringstream;
 using std::endl;
 using std::ostream;
 
-CTree::CTree(char ch): data(ch), kids(NULL), sibs(NULL), prev(NULL) {}
+template<typename T>
+Tree<T>::Tree(T ch): data(ch), kids(NULL), sibs(NULL), prev(NULL) {}
 
-CTree::~CTree() {
+template<typename T>
+Tree<T>::~Tree<T>() {
   delete this->kids;
   delete this->sibs;
 }
 
-ostream& operator<<(ostream& os, CTree& rt) {
+template<typename E>
+ostream& operator<<(ostream& os, Tree<E>& rt) {
   return os << rt.toString();
 }
 
-CTree& CTree::operator^(CTree& rt) {
+template<typename T>
+Tree<T>& Tree<T>::operator^(Tree<T>& rt) {
   this->addChild(&rt);
   return * this;
 }
 
-bool CTree::eq_Helper(const CTree * root1, const CTree * root2) {
+template<typename T>
+bool Tree<T>::eq_Helper(const Tree<T> * root1, const Tree<T> * root2) {
   if(root1 == NULL && root2 == NULL) 
     return true;
   if(root1 != NULL && root2 != NULL)
@@ -34,12 +39,14 @@ bool CTree::eq_Helper(const CTree * root1, const CTree * root2) {
   return false;
 }
 
-bool CTree::operator==(const CTree &root) {
+template<typename T>
+bool Tree<T>::operator==(const Tree<T> &root) {
   return eq_Helper(this, &root);
 }
 
-bool CTree::addSibling(char ch) {
-  CTree * newNode = new CTree(ch);
+template<typename T>
+bool Tree<T>::addSibling(T ch) {
+  Tree<T> * newNode = new Tree<T>(ch);
   if(this->addSibling(newNode) == false) {
     delete newNode;
     return false;
@@ -47,8 +54,9 @@ bool CTree::addSibling(char ch) {
   return true;
 }
 
-bool CTree::addChild(char ch) {
-  CTree * newNode = new CTree(ch);
+template<typename T>
+bool Tree<T>::addChild(T ch) {
+  Tree<T> * newNode = new Tree<T>(ch);
   if(this->addChild(newNode) == false) {
     delete newNode;
     return false;
@@ -56,7 +64,8 @@ bool CTree::addChild(char ch) {
   return true;
 }
 
-bool CTree::addSibling(CTree *root) {
+template<typename T>
+bool Tree<T>::addSibling(Tree<T> *root) {
   if(this->data == root->data || this->prev == NULL) {
     return false;
   }
@@ -75,7 +84,8 @@ bool CTree::addSibling(CTree *root) {
   return this->sibs->addSibling(root);
 }
 
-bool CTree::addChild(CTree *root) {
+template<typename T>
+bool Tree<T>::addChild(Tree<T> *root) {
   if(root->prev != NULL || root->sibs != NULL) {
     return false;
   }
@@ -97,7 +107,8 @@ bool CTree::addChild(CTree *root) {
   return this->kids->addSibling(root);
 }
 
-string CTree::toString() {
+template<typename T>
+string Tree<T>::toString() {
   stringstream stringbuilder;
   stringbuilder << this->data << endl;
   if(this->kids != NULL) {
