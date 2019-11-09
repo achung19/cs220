@@ -8,15 +8,26 @@ using std::stringstream;
 using std::endl;
 using std::ostream;
 
+// adding comments here is ugly
+
+/*
+ * Constructor for tree with generic values.
+ */
 template<typename T>
 Tree<T>::Tree(T ch): data(ch), kids(NULL), sibs(NULL), prev(NULL) {}
 
+/*
+ * Destructor.
+ */
 template<typename T>
 Tree<T>::~Tree<T>() {
   delete this->kids;
   delete this->sibs;
 }
 
+/*
+ * Same operators as CTree.
+ */
 template<typename E>
 ostream& operator<<(ostream& os, Tree<E>& rt) {
   return os << rt.toString();
@@ -28,6 +39,9 @@ Tree<T>& Tree<T>::operator^(Tree<T>& rt) {
   return * this;
 }
 
+/*
+ * Generic equality operator helper.
+ */
 template<typename T>
 bool Tree<T>::eq_Helper(const Tree<T> * root1, const Tree<T> * root2) {
   if(root1 == NULL && root2 == NULL) 
@@ -44,6 +58,9 @@ bool Tree<T>::operator==(const Tree<T> &root) {
   return eq_Helper(this, &root);
 }
 
+/*
+ * Same functions as CTree.
+ */
 template<typename T>
 bool Tree<T>::addSibling(T ch) {
   Tree<T> * newNode = new Tree<T>(ch);
@@ -107,6 +124,9 @@ bool Tree<T>::addChild(Tree<T> *root) {
   return this->kids->addSibling(root);
 }
 
+/*
+ * No changes.
+ */
 template<typename T>
 string Tree<T>::toString() {
   stringstream stringbuilder;

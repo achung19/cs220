@@ -8,22 +8,43 @@ using std::stringstream;
 using std::endl;
 using std::ostream;
 
+/*
+ * CTree constructor.
+ * 
+ * data: data of current node
+ * kids: kids below the node
+ * sibs: sib to the right of the node
+ * prev: the node before it (prev sib or parent)
+ */
 CTree::CTree(char ch): data(ch), kids(NULL), sibs(NULL), prev(NULL) {}
 
+/*
+ * CTree descructor.
+ */
 CTree::~CTree() {
   delete this->kids;
   delete this->sibs;
 }
 
+/*
+ * Output insert operator.
+ */
 ostream& operator<<(ostream& os, CTree& rt) {
   return os << rt.toString();
 }
 
+/*
+ * Add child operator.
+ */
 CTree& CTree::operator^(CTree& rt) {
   this->addChild(&rt);
   return * this;
 }
 
+/*
+ * Helper for equality operator, takes in two roots and recursively
+ * checks for equality.
+ */
 bool CTree::eq_Helper(const CTree * root1, const CTree * root2) {
   if(root1 == NULL && root2 == NULL) 
     return true;
@@ -34,10 +55,20 @@ bool CTree::eq_Helper(const CTree * root1, const CTree * root2) {
   return false;
 }
 
+/*
+ * Equality operator.
+ */
 bool CTree::operator==(const CTree &root) {
   return eq_Helper(this, &root);
 }
 
+/*
+ * Creates a new node and adds it as a sibling in order from the
+ * this pointer.
+ *
+ * Parameters:
+ * ch - value of the new node
+ */
 bool CTree::addSibling(char ch) {
   CTree * newNode = new CTree(ch);
   if(this->addSibling(newNode) == false) {
@@ -47,6 +78,13 @@ bool CTree::addSibling(char ch) {
   return true;
 }
 
+/*
+ * Creates a new node and adds it as a child to the this pointer,
+ * adds the child as a sibling to this's kids pointer.
+ *
+ * Parameters:
+ * ch - value of new node
+ */
 bool CTree::addChild(char ch) {
   CTree * newNode = new CTree(ch);
   if(this->addChild(newNode) == false) {
@@ -56,6 +94,12 @@ bool CTree::addChild(char ch) {
   return true;
 }
 
+/*
+ * Same as addSibling(char) but with an existing root node.
+ *
+ * Parameters:
+ * root - pointer to the root node
+ */
 bool CTree::addSibling(CTree *root) {
   if(this->data == root->data || this->prev == NULL) {
     return false;
@@ -75,6 +119,12 @@ bool CTree::addSibling(CTree *root) {
   return this->sibs->addSibling(root);
 }
 
+/*
+ * Same as addChild(char) but with an existing root node.
+ *
+ * Parameters:
+ * root - pointer to the root node.
+ */
 bool CTree::addChild(CTree *root) {
   if(root->prev != NULL || root->sibs != NULL) {
     return false;
@@ -97,6 +147,10 @@ bool CTree::addChild(CTree *root) {
   return this->kids->addSibling(root);
 }
 
+/*
+ * Returns a string version of the this tree, traversing
+ * in DFS order.
+ */
 string CTree::toString() {
   stringstream stringbuilder;
   stringbuilder << this->data << endl;

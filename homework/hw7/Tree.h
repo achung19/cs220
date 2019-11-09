@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <string>
 
+// copied from CTree.h
 
 // tree of characters, can be used to implement a trie template<typename T>
 template<typename T>
@@ -21,8 +22,8 @@ class Tree {
                  // this should always be null if the object is the root of a tree
 
 public:
-  template<typename E>
-  friend std::ostream& operator<<(std::ostream& os, Tree<E>& rt);
+  template<typename G>
+  friend std::ostream& operator<<(std::ostream& os, Tree<G>& rt);
 
   Tree(T ch);
 

@@ -1,0 +1,8 @@
+Alisen Chung
+achung19
+
+The only helper function I added was to the == operator: I added a helper function to help recurse on the nodes and check for null pointers, since originally root was not a pointer and the this pointer cannot be compared to null. The recursion algorithm was fairly standard: check for base cases, then recurse on kids and sibs. I got stuck for a long time on the template part because there was a small error with the friend class declaration: I put TreeTest instead of TTreeTest, so it would keep giving me function declared private errors.
+
+I also used a stringbuilder for my toString function to help make the code more readable, since string appends get very messy.
+
+The CTree implementation was very quick and easy, and the compilor/runtime errors made any bugs easy to spot. I copied the files over from the CTree implementation to the generic Tree implementation and added some template keywords. Some errors came with the friend function not being in the same class, so I chose to use a different generic letter (G) for it.
